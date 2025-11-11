@@ -1,7 +1,13 @@
-import QuotesDatae from '@/Data/Quotes.json';
-import { Cairo } from 'next/font/google'; // Import Cairo
+'use client';
 
-const cairo = Cairo({ subsets: ['arabic', 'latin'], weight: ['400', '700'] }); // Adjust subsets/weights as needed
+import QuotesDatae from '@/Data/Quotes.json';
+import { Cairo } from 'next/font/google';
+import Image from 'next/image';
+import { useState } from 'react';
+import { ConfirmationDialog } from '@/components/confirmation-dialog';
+import { SuccessMessage } from '@/components/success-message';
+
+const cairo = Cairo({ subsets: ['arabic', 'latin'], weight: ['400', '700'] });
 
 const variants = [
   {
@@ -21,33 +27,42 @@ const variants = [
     quoteImage: '/Blue.png',
   },
 ];
-import Image from 'next/image';
+
 export default function Home() {
+  const [selectedQuote, setSelectedQuote] = useState<{
+    quote: string;
+    author: string;
+  } | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleCardClick = (quote: string, author: string) => {
+    setSelectedQuote({ quote, author });
+  };
+
+  const handleConfirm = () => {
+    setSelectedQuote(null);
+    setShowSuccess(true);
+  };
+
   return (
     <div
       className={`grid grid-cols-10 h-screen bg-[#F7F8E6] ${cairo.className}`}
     >
-      {/* Apply font here or to specific elements */}
-      <div className="col-span-1 relative bg-[#60969B] h-full overflow-visible">
-        <div className="absolute bottom-[-10%] -left-full w-[500px] h-[500px]">
-          {/* Add px units */}
-          <Image
-            src="/Kids.png"
-            alt="Kids"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
-      </div>
-      <div className="col-span-9 flex justify-center items-center">
-        <div className="flex flex-col justify-around max-w-3/4 h-full">
+      <SuccessMessage show={showSuccess} onHide={() => setShowSuccess(false)} />
+
+      <div className="col-span-10 flex justify-center items-center">
+        <ConfirmationDialog
+          open={selectedQuote !== null}
+          onOpenChange={(open) => !open && setSelectedQuote(null)}
+          quote={selectedQuote?.quote || ''}
+          author={selectedQuote?.author || ''}
+          onConfirm={handleConfirm}
+        />
+        <div className="flex flex-col justify-center  max-w-3/4 h-full">
           <div>
-            <p className="text-3xl font-bold text-center text-[#1C3743] ">
-              إطار الجودة لمرحلة الطفولة المبكرة
-            </p>
-            <p className="text-3xl font-bold text-center text-[#1C3743] ">
-              KHDA ECCE QUALITY FRAMEWORK
+            <p className="text-6xl text-left font-bold mb-10 text-[#1C3743]">
+              Which piece of research aligns most closely with your beliefs
+              about early childhood?
             </p>
           </div>
           <div className="grid grid-cols-4 gap-x-5 gap-y-6 items-start ">
@@ -56,25 +71,17 @@ export default function Home() {
               return (
                 <div
                   key={index}
-                  className={`rounded-lg shadow-sm relative px-4 py-3 flex flex-col justify-between ${
+                  onClick={() => handleCardClick(quote.quote, quote.author)}
+                  className={`rounded-lg shadow-sm relative px-4 py-3 flex flex-col justify-between cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg ${
                     index < 4 ? 'self-stretch' : ''
                   }`}
                   style={{ backgroundColor: variant.cardColor }}
                 >
-                  <p
-                    className="absolute -top-5 -right-2 font-bold text-4xl text-white"
-                    style={{
-                      WebkitTextStroke: `4px ${variant.cardColor}`,
-                      paintOrder: 'stroke fill',
-                    }}
-                  >
-                    {quote.precentage}%
-                  </p>
                   <p className="text-xl font-regular mt-3">{quote.quote}</p>
                   <div className="flex flex-row justify-between items-end mt-4">
                     <Image
                       className=""
-                      src={variant.quoteImage}
+                      src={variant.quoteImage || '/placeholder.svg'}
                       width={25}
                       height={25}
                       alt="q"

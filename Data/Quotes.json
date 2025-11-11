@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "quote": "Children are active constructors of knowledge, who learn through their relationships with people and the world.",
+    "author": "Edwards, Gandini & Forman",
+    "year": 2011, 
+    "precentage": 10
+  },
+  {
+    "id": 2,
+    "quote": "Quality in early childhood education is built on the quality of interactions between adults and children.",
+    "author": "Siraj-Blatchford & Sylva",
+    "year": 2004,
+    "precentage": 2
+  },
+  {
+    "id": 3,
+    "quote": "What adults do in partnership with children generates a community of learners.",
+    "author": "Carol Duffy & Margaret Carr",
+    "year": 2001,
+    "precentage": 4
+  },
+  {
+    "id": 4,
+    "quote": "Young children are knowledgeable, strong in identity, and active in culture.",
+    "author": "Ministry of Education, New Zealand",
+    "year": 2017, 
+    "precentage": 6
+  },
+  {
+    "id": 5,
+    "quote": "Children who see their parents and teachers working closely together gain a sense of continuity and of being cared for and experience a trusting and secure environment in which they can learn and grow.",
+    "author": "Mitchell et al.",
+    "year": 2006, 
+    "precentage": 30
+  },
+ 
+  {
+    "id": 6,
+    "quote": "The inter‑connectedness of relationships between children, families and educators emerged as a defining feature of high‑quality ECEC; learning is not individual but embedded in community contexts.",
+    "author": "Phillips et al.",
+    "year": 2023, 
+    "precentage": 40
+  },
+   {
+    "id": 7,
+    "quote": "Learning communities are living, evolving organisms; they thrive through dialogue, shared values, and democratic participation.",
+    "author": "McNaughton & Williams",
+    "year": 2004, 
+    "precentage": 20
+  },
+  {
+    "id": 8,
+    "quote": "It takes a whole village to raise a child.",
+    "author": "UNICEF",
+    "year": 2022,
+    "precentage": 5
+  }
+]
