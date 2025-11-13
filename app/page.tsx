@@ -41,9 +41,9 @@ export default function Home() {
 
   return (
     <div
-      className={`grid grid-cols-10 h-screen bg-[#F7F8E6] ${cairo.className}`}
+      className={` overflow-hidden grid grid-cols-10 h-screen bg-[#F7F8E6] ${cairo.className}`}
     >
-      <div className="col-span-1 relative bg-[#60969B] h-full overflow-visible">
+      <div className="col-span-1 relative bg-[#60969B] h-full ">
         <div className="absolute bottom-[-10%] -left-full w-[500px] h-[500px]">
           <Image
             src="/Kids.png"
