@@ -1,36 +1,44 @@
-import QuotesDatae from '@/Data/Quotes.json';
-import { Cairo } from 'next/font/google'; // Import Cairo
+'use client';
 
-const cairo = Cairo({ subsets: ['arabic', 'latin'], weight: ['400', '700'] }); // Adjust subsets/weights as needed
+import { Cairo } from 'next/font/google';
+import Image from 'next/image';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+const cairo = Cairo({ subsets: ['arabic', 'latin'], weight: ['400', '700'] });
 
 const variants = [
-  {
-    cardColor: '#E6BE65',
-    quoteImage: '/Blue.png',
-  },
-  {
-    cardColor: '#60969B',
-    quoteImage: '/Yellow.png',
-  },
-  {
-    cardColor: '#437F9A',
-    quoteImage: '/Yellow.png',
-  },
-  {
-    cardColor: '#B1707A',
-    quoteImage: '/Blue.png',
-  },
+  { cardColor: '#E6BE65', quoteImage: '/Blue.png' },
+  { cardColor: '#60969B', quoteImage: '/Yellow.png' },
+  { cardColor: '#437F9A', quoteImage: '/Yellow.png' },
+  { cardColor: '#B1707A', quoteImage: '/Blue.png' },
 ];
-import Image from 'next/image';
+
+interface Quote {
+  id: number;
+  quote: string;
+  author: string;
+  year: string;
+  count: number;
+  percentage: number;
+}
+
 export default function Home() {
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('https://ecce.up.railway.app/api/cards/')
+      .then((res) => setQuotes(res.data))
+      .catch(console.error);
+  }, []);
+
   return (
     <div
       className={`grid grid-cols-10 h-screen bg-[#F7F8E6] ${cairo.className}`}
     >
-      {/* Apply font here or to specific elements */}
       <div className="col-span-1 relative bg-[#60969B] h-full overflow-visible">
         <div className="absolute bottom-[-10%] -left-full w-[500px] h-[500px]">
-          {/* Add px units */}
           <Image
             src="/Kids.png"
             alt="Kids"
@@ -43,19 +51,19 @@ export default function Home() {
       <div className="col-span-9 flex justify-center items-center">
         <div className="flex flex-col justify-around max-w-3/4 h-full">
           <div>
-            <p className="text-3xl font-bold text-center text-[#1C3743] ">
+            <p className="text-3xl font-bold text-center text-[#1C3743]">
               إطار الجودة لمرحلة الطفولة المبكرة
             </p>
-            <p className="text-3xl font-bold text-center text-[#1C3743] ">
+            <p className="text-3xl font-bold text-center text-[#1C3743]">
               KHDA ECCE QUALITY FRAMEWORK
             </p>
           </div>
-          <div className="grid grid-cols-4 gap-x-5 gap-y-6 items-start ">
-            {QuotesDatae.map((quote, index) => {
+          <div className="grid grid-cols-4 gap-x-5 gap-y-6 items-start">
+            {quotes.map((quote, index) => {
               const variant = variants[index % variants.length];
               return (
                 <div
-                  key={index}
+                  key={quote.id}
                   className={`rounded-lg shadow-sm relative px-4 py-3 flex flex-col justify-between ${
                     index < 4 ? 'self-stretch' : ''
                   }`}
@@ -68,12 +76,11 @@ export default function Home() {
                       paintOrder: 'stroke fill',
                     }}
                   >
-                    {quote.precentage}%
+                    {quote.percentage}%
                   </p>
                   <p className="text-xl font-regular mt-3">{quote.quote}</p>
                   <div className="flex flex-row justify-between items-end mt-4">
                     <Image
-                      className=""
                       src={variant.quoteImage}
                       width={25}
                       height={25}
@@ -86,11 +93,6 @@ export default function Home() {
                 </div>
               );
             })}
-          </div>
-          <div>
-            <h1 className="text-5xl font-bold text-center mt-10">
-              {/* hello world */}
-            </h1>
           </div>
         </div>
       </div>
