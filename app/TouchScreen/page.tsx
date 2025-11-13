@@ -2,7 +2,7 @@
 
 import { Cairo } from 'next/font/google';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ConfirmationDialog } from '@/components/confirmation-dialog';
 import { SuccessMessage } from '@/components/success-message';
 import axios from 'axios';
@@ -27,7 +27,7 @@ export default function Home() {
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     axios
       .get('https://ecce.up.railway.app/api/cards/')
       .then((res) => setQuotes(res.data))
