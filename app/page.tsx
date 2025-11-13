@@ -27,10 +27,16 @@ export default function Home() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
   useEffect(() => {
-    axios
-      .get('https://ecce.up.railway.app/api/cards/')
-      .then((res) => setQuotes(res.data))
-      .catch(console.error);
+    const fetchQuotes = () => {
+      axios
+        .get('https://ecce.up.railway.app/api/cards/')
+        .then((res) => setQuotes(res.data))
+        .catch(console.error);
+    };
+
+    fetchQuotes();
+    const interval = setInterval(fetchQuotes, 180000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
