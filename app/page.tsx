@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div
-      className={` overflow-hidden grid grid-cols-10 h-screen bg-[#F7F8E6] ${cairo.className}`}
+      className={`overflow-hidden grid grid-cols-10 h-screen bg-[#F7F8E6] ${cairo.className}`}
     >
       <div className="col-span-1 relative bg-[#60969B] h-full ">
         <div className="absolute bottom-[-10%] -left-full w-[500px] h-[500px]">
@@ -54,14 +54,20 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="col-span-9 flex justify-center items-center">
-        <div className="flex flex-col justify-around max-w-3/4 h-full">
-          <div>
+      <div className="col-span-9 flex justify-center items-center mt-10">
+        <div className="flex flex-col  max-w-3/4 h-full">
+          <div className="mb-36">
             <p className="text-3xl font-bold text-center text-[#1C3743]">
               إطار الجودة لمرحلة الطفولة المبكرة
             </p>
             <p className="text-3xl font-bold text-center text-[#1C3743]">
               KHDA ECCE QUALITY FRAMEWORK
+            </p>
+          </div>
+          <div>
+            <p className="text-6xl text-left font-bold mb-16 text-[#1C3743]">
+              Which piece of research aligns most closely with your beliefs
+              about early childhood?
             </p>
           </div>
           <div className="grid grid-cols-4 gap-x-5 gap-y-6 items-start">
@@ -92,6 +98,7 @@ export default function Home() {
                       height={25}
                       alt="q"
                     />
+
                     <p className="text-[10pt] text-right text-white text-shadow-2xs text-shadow-grey">
                       {quote.author}
                     </p>
